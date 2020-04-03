@@ -17,6 +17,8 @@ router.get("/", function(req, res) {
 
         let results = [];
 
+        console.log("DbSTAT pre: ", dbStat)
+
         let dateFull = $("tbody > tr:nth-child(1) > td > p:nth-child(3)")
           .text()
           .split("d ", 2);
@@ -40,6 +42,7 @@ router.get("/", function(req, res) {
         // console.log("Deaths: ", deaths);
 
         if (dbStat.length == 0) {
+          console.log("length is 0");
           let data = {
             date: date,
             totalPositives: totalPositives,
@@ -52,6 +55,14 @@ router.get("/", function(req, res) {
           Stats.create(data)
             .then(function(Stats) {
               console.log(Stats);
+              dbStat.push(Stats)
+              console.log("DbStat POST: ", dbStat)
+              let hbsObject = {
+                stats: dbStat
+              };
+              console.log("HBS Object: ", hbsObject);
+          
+              res.render("index", hbsObject);
             })
             .catch(function(err) {
               console.log(err.message);
@@ -74,22 +85,30 @@ router.get("/", function(req, res) {
             Stats.create(data)
               .then(function(Stats) {
                 console.log(Stats);
+                dbStat.push(Stats)
+                let hbsObject = {
+                  stats: dbStat
+                };
+                console.log("HBS Object: ", hbsObject);
+            
+                res.render("index", hbsObject);
               })
               .catch(function(err) {
                 console.log(err.message);
               });
           } else {
             console.log("No new date scraped!");
+            let hbsObject = {
+              stats: dbStat
+            };
+            console.log("HBS Object: ", hbsObject);
+        
+            res.render("index", hbsObject);
           }
         });
       });
 
-    let hbsObject = {
-      stats: dbStat
-    };
-    // console.log("HBS Object: ", hbsObject);
-
-    res.render("index", hbsObject);
+    
   });
 });
 
