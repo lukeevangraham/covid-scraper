@@ -58,10 +58,10 @@ router.get("/", function(req, res) {
         }
 
         dbStat.forEach(document => {
-          console.log("docDate: ", document.date);
-          console.log("cheerioDate: ", date);
+        //   console.log("docDate: ", document.date);
+        //   console.log("cheerioDate: ", date);
           if (moment(date).isAfter(document.date)) {
-            console.log("new date scraped");
+            console.log("New date scraped!");
             let data = {
               date: date,
               totalPositives: totalPositives,
@@ -78,7 +78,7 @@ router.get("/", function(req, res) {
                 console.log(err.message);
               });
           } else {
-            console.log("no new date scraped");
+            console.log("No new date scraped!");
           }
         });
       });
