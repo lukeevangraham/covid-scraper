@@ -18,6 +18,9 @@ let StatSchema = new Schema({
     },
     deaths: {
         type: Number
+    },
+    newCases: {
+        type: Number
     }
 })
 

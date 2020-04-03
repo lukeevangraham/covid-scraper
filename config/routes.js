@@ -45,7 +45,8 @@ router.get("/", function(req, res) {
             totalPositives: totalPositives,
             hospitalizations: hospitalizations,
             intensiveCare: intensiveCare,
-            deaths: deaths
+            deaths: deaths,
+            newCases: null
           };
 
           Stats.create(data)
@@ -79,7 +80,6 @@ router.get("/", function(req, res) {
               });
           } else {
             console.log("No new date scraped!");
-            console.log("LOOK HERE: ", document)
           }
         });
       });
