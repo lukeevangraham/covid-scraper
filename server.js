@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.engine("handlebars", exphbs({ defaultLayout: "main", helpers: require("./config/handlebars-helpers") }));
 app.set("view engine", "handlebars");
 
 let routes = require("./config/routes.js");

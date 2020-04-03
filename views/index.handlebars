@@ -1,6 +1,25 @@
 <div class="container">
-    <h1>Hi there!</h1>
 
-    {{ log this.stats }}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Total Positives</th>
+            <th scope="col">Hospitalizations</th>
+            <th scope="col">ICU Patients</th>
+            <th scope="col">Deaths</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each stats}}
+    {{> stat-block }}
+    {{/each }}
+
+    </tbody>
+</table>
+
+
+
 
 </div>

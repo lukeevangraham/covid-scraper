@@ -7,7 +7,7 @@ let router = express.Router();
 let Stats = require("../models/Stats.js");
 
 router.get("/", function(req, res) {
-  Stats.find({}).then(function(dbStat) {
+  Stats.find({}).lean().then(function(dbStat) {
     axios
       .get(
         "https://www.sandiegocounty.gov/content/sdc/hhsa/programs/phs/community_epidemiology/dc/2019-nCoV/status.html#Table"
@@ -79,6 +79,7 @@ router.get("/", function(req, res) {
               });
           } else {
             console.log("No new date scraped!");
+            console.log("LOOK HERE: ", document)
           }
         });
       });
