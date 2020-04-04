@@ -10,7 +10,7 @@ let Stats = require("../models/Stats.js");
 
 router.get("/", function (req, res) {
   function renderIndex(hbsObject) {
-    console.log("HBS Object: ", hbsObject);
+    // console.log("HBS Object: ", hbsObject);
     res.render("index", hbsObject);
   }
 
@@ -24,9 +24,8 @@ router.get("/", function (req, res) {
         .then(function (response) {
           let $ = cheerio.load(response.data);
 
-          let results = [];
-
-          console.log("DbSTAT pre: ", dbStat);
+          let arrayOfPositives = [];
+          let arrayOfDates = [];
 
           let dateFull = $("tbody > tr:nth-child(1) > td > p:nth-child(3)")
             .text()
@@ -77,7 +76,7 @@ router.get("/", function (req, res) {
                 let hbsObject = {
                   stats: dbStat,
                 };
-                console.log("HBS Object: ", hbsObject);
+                // console.log("HBS Object: ", hbsObject);
 
                 res.render("index", hbsObject);
               })
@@ -89,6 +88,8 @@ router.get("/", function (req, res) {
           let newDateScraped;
 
           dbStat.forEach((document) => {
+            arrayOfPositives.push(document.totalPositives)
+            arrayOfDates.push(moment(document.date).format("M/D"))
             //   console.log("docDate: ", document.date);
             //   console.log("cheerioDate: ", date);
             if (moment(date).isAfter(document.date)) {
@@ -114,6 +115,8 @@ router.get("/", function (req, res) {
                 dbStat.push(Stats);
                 hbsObject = {
                   stats: dbStat,
+                  totalPositives: arrayOfPositives,
+                  dates: arrayOfDates
                 };
                 renderIndex(hbsObject)
               })
@@ -123,6 +126,8 @@ router.get("/", function (req, res) {
           } else {
             hbsObject = {
               stats: dbStat,
+              totalPositives: arrayOfPositives,
+              dates: arrayOfDates
             };
             renderIndex(hbsObject)
           }
