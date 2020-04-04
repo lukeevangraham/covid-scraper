@@ -26,13 +26,13 @@ router.get("/", function(req, res) {
         let date = moment(dateString, "MMM D, YYYY").format();
         let totalPositives = $(
           "tbody > tr:nth-child(3) > td:nth-child(2) > b"
-        ).text();
+        ).text().split(',').join('');
         let hospitalizations = $(
           "tbody > tr:nth-child(19) > td:nth-child(2)"
-        ).html();
+        ).html().split(',').join('');
         let intensiveCare = $(
           "tbody > tr:nth-child(20) > td:nth-child(2)"
-        ).html();
+        ).html().split(',').join('');
         let deaths = $("tbody > tr:nth-child(21) > td:nth-child(2)").html();
 
         // console.log("Latest Date: ", date);
