@@ -14,7 +14,7 @@ router.get("/", function (req, res) {
     res.render("index", hbsObject);
   }
 
-  Stats.find({})
+  Stats.find({}).sort('date')
     .lean()
     .then(function (dbStat) {
       axios
