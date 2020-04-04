@@ -10,7 +10,6 @@ let Stats = require("../models/Stats.js");
 
 router.get("/", function (req, res) {
   function renderIndex(hbsObject) {
-    // console.log("HBS Object: ", hbsObject);
     res.render("index", hbsObject);
   }
 
@@ -89,7 +88,7 @@ router.get("/", function (req, res) {
 
           dbStat.forEach((document) => {
             arrayOfPositives.push(document.totalPositives)
-            arrayOfDates.push(moment(document.date).format("M/D"))
+            arrayOfDates.push(moment(document.date).subtract(1, 'days').format("M/D"))
             //   console.log("docDate: ", document.date);
             //   console.log("cheerioDate: ", date);
             if (moment(date).isAfter(document.date)) {
