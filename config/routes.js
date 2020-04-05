@@ -24,6 +24,7 @@ router.get("/", function (req, res) {
           let $ = cheerio.load(response.data);
 
           let arrayOfPositives = [];
+          let arrayOfNewPositives = [];
           let arrayOfDates = [];
 
           let dateFull = $("tbody > tr:nth-child(1) > td > p:nth-child(3)")
@@ -49,12 +50,6 @@ router.get("/", function (req, res) {
             .html()
             .split(",")
             .join("");
-
-          // console.log("Latest Date: ", date);
-          // console.log("Total Positives: ", totalPositives);
-          // console.log("Hospitalizations: ", hospitalizations);
-          // console.log("Intensive Care: ", intensiveCare);
-          // console.log("Deaths: ", deaths);
 
           if (dbStat.length == 0) {
             console.log("length is 0");
@@ -85,17 +80,28 @@ router.get("/", function (req, res) {
           }
 
           let newDateScraped;
+          let previousTotalPositives;
 
           dbStat.forEach((document) => {
             arrayOfPositives.push(document.totalPositives)
             arrayOfDates.push(moment(document.date).subtract(1, 'days').format("M/D"))
+            // console.log("LOOK HERE: ", previousTotalPositives)
+            if (previousTotalPositives) {
+              document.newPositives = (document.totalPositives - previousTotalPositives);
+              arrayOfNewPositives.push(document.totalPositives - previousTotalPositives);
+            } else {
+              document.newPositives = 0;
+              arrayOfNewPositives.push(0);
+            }
+            // console.log("LOOK HERE: ", document)
+            previousTotalPositives = document.totalPositives;
             //   console.log("docDate: ", document.date);
             //   console.log("cheerioDate: ", date);
             if (moment(date).isAfter(document.date)) {
-              console.log("New date scraped!");
+              // console.log("New date scraped!");
               newDateScraped = true;
             } else {
-              console.log("No new date scraped!");
+              // console.log("No new date scraped!");
               newDateScraped = false;
             }
           });
@@ -115,6 +121,7 @@ router.get("/", function (req, res) {
                 hbsObject = {
                   stats: dbStat,
                   totalPositives: arrayOfPositives,
+                  newPositives: arrayOfNewPositives,
                   dates: arrayOfDates
                 };
                 renderIndex(hbsObject)
@@ -126,6 +133,7 @@ router.get("/", function (req, res) {
             hbsObject = {
               stats: dbStat,
               totalPositives: arrayOfPositives,
+              newPositives: arrayOfNewPositives,
               dates: arrayOfDates
             };
             renderIndex(hbsObject)
