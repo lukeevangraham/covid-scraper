@@ -117,7 +117,10 @@ router.get("/", function (req, res) {
 
             Stats.create(data)
               .then(function (Stats) {
+                // when a new date is added, the newPositive numbers are calculate for the new entry (new isn't stored in Db)
+                tempNewPositives = (Stats.totalPositives - dbStat[dbStat.length - 1].totalPositives)
                 dbStat.push(Stats);
+                dbStat[dbStat.length - 1]["newPositives"] = tempNewPositives;
                 hbsObject = {
                   stats: dbStat,
                   totalPositives: arrayOfPositives,
