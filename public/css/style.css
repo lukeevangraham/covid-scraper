@@ -1,6 +1,6 @@
 body {
-    background-image: url("/images/interlaced.png");
-    /* background-color: #f8f9fc; */
+    /* background-image: url("../images/interlaced.png"); */
+    background-color: #e7e7e7;
 }
 
 h1 {
