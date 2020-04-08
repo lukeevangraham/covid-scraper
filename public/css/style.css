@@ -1,3 +1,12 @@
 body {
-    /* background-image: url("/images/interlaced.png"); */
+    background-image: url("/images/interlaced.png");
+    /* background-color: #f8f9fc; */
+}
+
+h1 {
+    font-family: 'Inria Sans', sans-serif;
+}
+
+p, th, td {
+    font-family: 'Roboto', sans-serif;
 }
