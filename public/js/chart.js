@@ -34,3 +34,22 @@ let myChart = new Chart(ctx, {
     ],
   },
 });
+
+let ctx2 = document.getElementById("myChart2").getContext("2d");
+let myChart2 = new Chart(ctx2, {
+  // The type of chart we want to create
+  type: "line",
+
+  // The data for our dataset
+  data: {
+    labels: dates,
+    datasets: [
+        {
+          label: "New Positive Cases",
+          backgroundColor: "rgb(56, 163, 229)",
+          borderColor: "rgb(56, 163, 229)",
+          data: newPositives,
+        }
+    ],
+  },
+});
