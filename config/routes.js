@@ -28,7 +28,7 @@ router.get("/", function (req, res) {
           let arrayOfNewPositives = [];
           let arrayOfDates = [];
 
-          let dateFull = $("tbody > tr:nth-child(1) > td > p:nth-child(3)")
+          let dateFull = $("tbody > tr:nth-child(1) > td > p:nth-child(2)")
             .text()
             .split("d ", 2);
           let dateString = dateFull[1].split(",", 2).join();
@@ -39,15 +39,15 @@ router.get("/", function (req, res) {
             .text()
             .split(",")
             .join("");
-          let hospitalizations = $("tbody > tr:nth-child(19) > td:nth-child(2)")
+          let hospitalizations = $("tbody > tr:nth-child(20) > td:nth-child(2)")
             .html()
             .split(",")
             .join("");
-          let intensiveCare = $("tbody > tr:nth-child(20) > td:nth-child(2)")
+          let intensiveCare = $("tbody > tr:nth-child(21) > td:nth-child(2)")
             .html()
             .split(",")
             .join("");
-          let deaths = $("tbody > tr:nth-child(21) > td:nth-child(2)")
+          let deaths = $("tbody > tr:nth-child(22) > td:nth-child(2)")
             .html()
             .split(",")
             .join("");
