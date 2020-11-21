@@ -34,7 +34,7 @@ router.get("/", function (req, res) {
           let dateString = dateFull[1].split(",", 2).join();
           let date = moment(dateString, "MMM D, YYYY").format();
           let totalPositives = $(
-            "tbody > tr:nth-child(3) > td:nth-child(2) > b"
+            "tbody > tr:nth-child(4) > td:nth-child(2) > b"
           )
             .text()
             .split(",")
